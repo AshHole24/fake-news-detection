@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fake News Detection</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Fake News Detection</h1>
+
+<form action="/predict" method="post">
+
+<textarea name="news" placeholder="Paste news text here"></textarea>
+
+<br><br>
+
+<button type="submit">Check News</button>
+
+</form>
+
+{% if prediction %}
+<h2>{{ prediction }}</h2>
+{% endif %}
+
+</div>
+
+</body>
+</html>
