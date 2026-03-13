@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Latest News</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<!-- FLOATING BACK BUTTON -->
+
+<a class="floating-back" href="/">⬅ Back</a>
+
+<header class="latest-header">
+
+<h1>Latest News</h1>
+<p>Click any news to read full article</p>
+
+</header>
+
+<div class="news-grid">
+
+{% for article in articles %}
+
+<a href="/news/{{ loop.index0 }}" class="news-link-card">
+
+<div class="news-card">
+
+<h3>{{article.title}}</h3>
+
+<p>{{article.description}}</p>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+<div class="back-container">
+
+<a class="news-btn" href="/">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

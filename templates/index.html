@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>AI Fake News Detector</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="card header">
+
+<div>
+<h1>AI Fake News Detector</h1>
+<p>Detect whether a news article is real or fake using machine learning</p>
+</div>
+
+</header>
+
+
+<section class="card gradient-card">
+
+<h2>Analyze News</h2>
+
+<form action="/predict" method="post">
+
+<textarea name="news" placeholder="Paste news article here..."></textarea>
+
+<button type="submit">Analyze News</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="result">
+
+<strong>{{prediction}}</strong>
+<p>Confidence: {{confidence}}%</p>
+
+</div>
+
+{% endif %}
+
+
+<div class="info-box">
+
+<h3>How the AI Works</h3>
+
+<ul>
+<li>Analyzes linguistic patterns in news articles</li>
+<li>Uses machine learning trained on real & fake news datasets</li>
+<li>Detects misleading language and suspicious phrasing</li>
+<li>Generates credibility prediction with confidence score</li>
+</ul>
+
+</div>
+
+</section>
+
+
+<aside class="right">
+
+<div class="card gradient-card">
+
+<h3>Prediction Statistics</h3>
+
+<canvas id="chart"></canvas>
+
+</div>
+
+<div class="card gradient-card">
+
+<h3>Quick Actions</h3>
+
+<a class="news-btn" href="/latest">View Latest Indian News</a>
+
+</div>
+
+</aside>
+
+</div>
+
+
+<script>
+
+var ctx = document.getElementById('chart')
+
+new Chart(ctx,{
+type:'pie',
+data:{
+labels:['Fake','Real'],
+datasets:[{
+data:[{{fake}},{{real}}],
+backgroundColor:['#ef4444','#22c55e']
+}]
+}
+})
+
+</script>
+
+</body>
+</html>
