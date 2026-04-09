@@ -19,7 +19,7 @@
 
 <div class="article-container">
 
-<p>{{article.content}}</p>
+<p>{{article.content if article.content else article.description}}</p>
 
 <br>
 
@@ -52,6 +52,46 @@ Read Full Article
 <a class="news-btn" href="/latest">⬅ Back to News</a>
 
 </div>
+<script>
+
+document.getElementById("chatForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    let queryInput = document.getElementById("query");
+    let responseBox = document.getElementById("response");
+
+    let query = queryInput.value.trim();
+
+    // ✅ prevent empty input
+    if(query === ""){
+        responseBox.innerText = "Please enter a question.";
+        return;
+    }
+
+    try{
+        let res = await fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "query=" + encodeURIComponent(query)
+        });
+
+        let data = await res.text();
+
+        responseBox.innerText = data;
+
+    } catch(error){
+        responseBox.innerText = "Something went wrong. Please try again.";
+        console.error(error);
+    }
+
+    // ✅ optional: clear input after submit
+    queryInput.value = "";
+
+});
+
+</script>
 
 </body>
 </html>
