@@ -23,7 +23,27 @@
 
 <br>
 
-<a href="{{article.url}}" target="_blank" class="news-btn">Read Full Article</a>
+<p style="font-size:13px;color:gray;">
+Source: {{article.source.name}} |
+Date: {{article.publishedAt[:10]}}
+</p>
+
+<br>
+
+<a href="{{article.url}}" target="_blank" class="news-btn">
+Read Full Article
+</a>
+
+<hr>
+
+<h3>Ask About This News</h3>
+
+<form id="chatForm">
+<input type="text" id="query" placeholder="Ask something..." style="width:70%;padding:8px;">
+<button type="submit">Ask</button>
+</form>
+
+<p id="response" style="margin-top:10px;"></p>
 
 </div>
 
