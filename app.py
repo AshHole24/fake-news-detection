@@ -85,13 +85,28 @@ def chat():
     user_query = request.form["query"].lower()
 
     # simple logic-based responses
+   @app.route("/chat", methods=["POST"])
+def chat():
+
+    user_query = request.form["query"].lower()
+
+    # more dynamic responses
     if "fake" in user_query:
-        response = "This news may be fake if it contains exaggerated or misleading information."
+        response = "This news might be fake if it contains exaggerated claims or lacks a reliable source."
+
     elif "real" in user_query:
-        response = "Reliable news usually comes from trusted sources and verified facts."
+        response = "This news can be considered real if it comes from trusted sources and verified facts."
+
+    elif "source" in user_query:
+        response = "You can check the source mentioned above. Trusted sources include BBC, NDTV, Reuters, etc."
+
+    elif "why" in user_query:
+        response = "Fake news usually contains emotional language, misleading headlines, or no proper source."
+
     elif "trust" in user_query:
-        response = "Check the source and cross-verify with trusted news websites."
+        response = "To trust a news article, always cross-check with multiple reliable sources."
+
     else:
-        response = "Please verify the news from trusted sources before believing it."
+        response = "Try asking things like: 'Is this fake?', 'Can I trust this?', or 'What is the source?'"
 
     return response
