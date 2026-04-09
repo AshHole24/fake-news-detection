@@ -78,3 +78,20 @@ if __name__ == "__main__":
 
     port = int(os.environ.get("PORT",10000))
     app.run(host="0.0.0.0", port=port)
+    
+@app.route("/chat", methods=["POST"])
+def chat():
+
+    user_query = request.form["query"].lower()
+
+    # simple logic-based responses
+    if "fake" in user_query:
+        response = "This news may be fake if it contains exaggerated or misleading information."
+    elif "real" in user_query:
+        response = "Reliable news usually comes from trusted sources and verified facts."
+    elif "trust" in user_query:
+        response = "Check the source and cross-verify with trusted news websites."
+    else:
+        response = "Please verify the news from trusted sources before believing it."
+
+    return response
