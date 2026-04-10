@@ -4,25 +4,28 @@
 <title>History</title>
 <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
 
-<h2 style="text-align:center;">Prediction History</h2>
+<div class="top-bar">
+<a href="/" class="news-btn">⬅ Back</a>
+</div>
+
+<h1 class="main-heading">Prediction History</h1>
 
 <div class="container">
 
-{% for row in data %}
-<div class="card">
+{% for item in data %}
+<div class="history-card">
 
-<p><strong>News:</strong> {{row[1][:100]}}...</p>
-<p><strong>Result:</strong> {{row[2]}}</p>
-<p><strong>Confidence:</strong> {{row[3]}}%</p>
+<p><strong>News:</strong> {{item[1]}}</p>
+<p><strong>Result:</strong> {{item[2]}}</p>
+<p><strong>Confidence:</strong> {{item[3]}}%</p>
 
 </div>
 {% endfor %}
 
 </div>
-
-<a href="/" class="news-btn">⬅ Back</a>
 
 </body>
 </html>
