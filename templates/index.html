@@ -3,6 +3,10 @@
 <head>
 <title>Fake News Detector</title>
 <link rel="stylesheet" href="/static/style.css">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 
@@ -26,19 +30,21 @@
 <h3>{{prediction}}</h3>
 <p>Confidence: {{confidence}}%</p>
 
-<!-- Confidence Bar -->
-<div style="background:#ddd;border-radius:10px;">
+<!-- ✅ FIXED CONFIDENCE BAR -->
+<div style="background:#ddd;border-radius:10px;overflow:hidden;">
 <div style="
 width: {{confidence}}%;
+max-width:100%;
 background: linear-gradient(90deg,#22c55e,#16a34a);
-padding:8px;
-border-radius:10px;
+padding:8px 0;
 color:white;
 text-align:center;
+font-size:14px;
 ">
 {{confidence}}%
 </div>
 </div>
+
 </div>
 {% endif %}
 
@@ -55,12 +61,37 @@ text-align:center;
 
 <br>
 
+<!-- ✅ PIE CHART -->
+<div style="max-width:300px;margin:auto;">
+<canvas id="chart"></canvas>
+</div>
+
+<br>
+
 <a href="/latest" class="news-btn">Latest News</a>
 <a href="/history" class="news-btn">View History</a>
 
 </div>
 
 </div>
+
+<!-- ✅ CHART SCRIPT -->
+<script>
+var ctx = document.getElementById('chart');
+
+if(ctx){
+new Chart(ctx,{
+    type:'pie',
+    data:{
+        labels:['Fake','Real'],
+        datasets:[{
+            data:[{{fake}},{{real}}],
+            backgroundColor:['#ef4444','#22c55e']
+        }]
+    }
+});
+}
+</script>
 
 </body>
 </html>
