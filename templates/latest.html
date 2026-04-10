@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Latest News</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
 <body>
 
+<!-- 🔥 FIXED BACK BUTTON -->
 <div class="top-bar">
 <a href="/" class="news-btn">⬅ Back</a>
 </div>
@@ -14,7 +22,9 @@
 <a href="/news/{{loop.index0}}" class="news-link">
 
 <div class="news-card">
+
 <h3>{{article.title}}</h3>
+
 <p>{{article.description}}</p>
 
 <p class="meta">
@@ -29,3 +39,6 @@
 </div>
 
 </div>
+
+</body>
+</html>
