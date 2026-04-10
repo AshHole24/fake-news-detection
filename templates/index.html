@@ -30,6 +30,21 @@
 </div>
 {% endif %}
 
+<!-- ✅ CONFIDENCE BLOCK (GROUPED PROPERLY) -->
+{% if confidence %}
+<div class="confidence-box">
+
+<p><strong>Confidence: {{confidence}}%</strong></p>
+
+<div class="bar-container">
+<div class="bar" style="width: {{confidence}}%;">
+{{confidence}}%
+</div>
+</div>
+
+</div>
+{% endif %}
+
 {% if reasons %}
 <div class="result">
 <strong>Reason:</strong>
@@ -48,16 +63,6 @@
 
 <h3 class="center">Analysis</h3>
 
-{% if confidence %}
-<p class="center"><strong>Confidence: {{confidence}}%</strong></p>
-
-<div class="bar-container">
-<div class="bar" style="width: {{confidence}}%;">
-{{confidence}}%
-</div>
-</div>
-{% endif %}
-
 <div class="chart-container">
 <canvas id="chart"></canvas>
 </div>
@@ -66,13 +71,12 @@
 
 </div>
 
-<!-- BOTTOM BUTTONS -->
+<!-- BUTTONS -->
 <div class="bottom-buttons">
 <a href="/latest" class="news-btn">Latest News</a>
 <a href="/history" class="news-btn">History</a>
 </div>
 
-<!-- CHART SCRIPT -->
 <script>
 var ctx = document.getElementById('chart');
 
