@@ -12,7 +12,7 @@
 
 <div class="main-container">
 
-<!-- LEFT -->
+<!-- LEFT SIDE -->
 <div class="card left-panel">
 
 <form action="/predict" method="post">
@@ -44,10 +44,10 @@
 
 </div>
 
-<!-- RIGHT -->
+<!-- RIGHT SIDE -->
 <div class="card right-panel">
 
-<h3 style="text-align:center;">Analysis</h3>
+<h3 class="center">Analysis</h3>
 
 {% if confidence %}
 <div class="bar-container">
@@ -57,7 +57,9 @@
 </div>
 {% endif %}
 
+<div class="chart-container">
 <canvas id="chart"></canvas>
+</div>
 
 </div>
 
@@ -81,6 +83,10 @@ new Chart(ctx,{
             data:[{{fake}},{{real}}],
             backgroundColor:['#ef4444','#22c55e']
         }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false
     }
 });
 }
