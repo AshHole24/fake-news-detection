@@ -46,5 +46,37 @@ Read Full Article
 
 </div>
 
+<script>
+document.getElementById("chatForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    let query = document.getElementById("query").value.trim();
+    let responseBox = document.getElementById("response");
+
+    if(query === ""){
+        responseBox.innerText = "Enter a question";
+        return;
+    }
+
+    responseBox.innerText = "Thinking...";
+
+    try{
+        let res = await fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "query=" + encodeURIComponent(query)
+        });
+
+        let data = await res.text();
+        responseBox.innerText = data;
+
+    } catch{
+        responseBox.innerText = "Error connecting to AI";
+    }
+});
+</script>
+
 </body>
 </html>
