@@ -17,12 +17,16 @@
 <button type="submit">Analyze News</button>
 </form>
 
+{% if error %}
+<p style="color:red;">{{error}}</p>
+{% endif %}
+
 {% if prediction %}
 <div class="result">
 <h3>{{prediction}}</h3>
 <p>Confidence: {{confidence}}%</p>
 
-<!-- CONFIDENCE BAR -->
+<!-- Confidence Bar -->
 <div style="background:#ddd;border-radius:10px;">
 <div style="
 width: {{confidence}}%;
@@ -35,7 +39,6 @@ text-align:center;
 {{confidence}}%
 </div>
 </div>
-
 </div>
 {% endif %}
 
