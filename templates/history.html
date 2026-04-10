@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2 style="text-align:center;">Prediction History</h2>
+
+<div class="container">
+
+{% for row in data %}
+<div class="card">
+
+<p><strong>News:</strong> {{row[1][:100]}}...</p>
+<p><strong>Result:</strong> {{row[2]}}</p>
+<p><strong>Confidence:</strong> {{row[3]}}%</p>
+
+</div>
+{% endfor %}
+
+</div>
+
+<a href="/" class="news-btn">⬅ Back</a>
+
+</body>
+</html>
