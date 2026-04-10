@@ -1,6 +1,6 @@
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#f3f7ff,#dfe9ff);
     margin: 0;
     padding: 20px;
 }
@@ -11,92 +11,59 @@ body{
     margin: auto;
 }
 
-/* Card (Glass Effect) */
+/* Card */
 .card{
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    transition: 0.3s;
-}
-
-.card:hover{
-    transform: translateY(-3px);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Heading */
 h2{
     text-align: center;
-    color: #1e293b;
 }
 
-/* Textarea */
+/* Textarea (FIXED ALIGNMENT) */
 textarea{
     width: 100%;
     padding: 12px;
-    margin: 12px 0;
-    border-radius: 8px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border-radius: 6px;
     border: 1px solid #ccc;
     resize: none;
-    transition: 0.2s;
-}
-
-textarea:focus{
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 5px rgba(59,130,246,0.3);
 }
 
 /* Button */
 button{
     width: 100%;
-    background: linear-gradient(90deg,#3b82f6,#06b6d4);
+    background: #0f766e;
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
 }
 
-button:hover{
-    opacity: 0.9;
-}
-
-/* Result Box */
+/* Result */
 .result{
     margin-top: 15px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #f8fafc;
 }
 
-/* Links / Buttons */
+/* Links */
 .news-btn{
-    display: inline-block;
-    margin-top: 10px;
-    margin-right: 10px;
-    padding: 8px 15px;
-    background: linear-gradient(90deg,#22c55e,#16a34a);
+    background: #06b6d4;
     color: white;
-    border-radius: 6px;
+    padding: 8px 15px;
     text-decoration: none;
-    transition: 0.3s;
+    border-radius: 6px;
+    margin-right: 10px;
 }
 
-.news-btn:hover{
-    opacity: 0.85;
-}
-
-/* Confidence Bar Smooth */
-.result div div{
-    transition: width 0.5s ease-in-out;
-}
-
-/* Chart Center */
-canvas{
-    display: block;
-    margin: auto;
+/* Confidence bar FIX */
+.result div{
+    overflow: hidden;
+    border-radius: 10px;
 }
