@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <title>News Detail</title>
-
 <link rel="stylesheet" href="/static/style.css">
-
 </head>
 
 <body>
 
-<header class="latest-header">
+<!-- TOP BACK BUTTON -->
+<div class="top-bar">
+<a href="/latest" class="news-btn">⬅ Back</a>
+</div>
 
-<h1>{{article.title}}</h1>
+<div class="container">
 
-</header>
+<div class="article-card">
 
-<div class="article-container">
+<h2>{{article.title}}</h2>
 
-<p>{{article.content if article.content else article.description}}</p>
-
-<br>
-
-<p style="font-size:13px;color:gray;">
-Source: {{article.source.name}} |
-Date: {{article.publishedAt[:10]}}
+<p class="meta">
+{{article.source.name}} • {{article.publishedAt[:10]}}
 </p>
 
-<br>
+<p class="content">
+{{article.content if article.content else article.description}}
+</p>
 
 <a href="{{article.url}}" target="_blank" class="news-btn">
 Read Full Article
@@ -36,61 +32,42 @@ Read Full Article
 
 <hr>
 
-<h3>Ask About This News</h3>
+<h3>Ask AI</h3>
 
-<form id="chatForm">
-<input type="text" id="query" placeholder="Ask something..." style="width:70%;padding:8px;">
+<form id="chatForm" class="chat-box">
+<input type="text" id="query" placeholder="Ask about this news...">
 <button type="submit">Ask</button>
 </form>
 
-<p id="response" style="margin-top:10px;"></p>
+<p id="response"></p>
 
 </div>
 
-<div class="back-container">
-
-<a class="news-btn" href="/latest">⬅ Back to News</a>
-
 </div>
+
 <script>
-
 document.getElementById("chatForm").addEventListener("submit", async function(e){
     e.preventDefault();
 
-    let queryInput = document.getElementById("query");
+    let query = document.getElementById("query").value.trim();
     let responseBox = document.getElementById("response");
 
-    let query = queryInput.value.trim();
-
-    // ✅ prevent empty input
     if(query === ""){
-        responseBox.innerText = "Please enter a question.";
+        responseBox.innerText = "Enter a question";
         return;
     }
 
-    try{
-        let res = await fetch("/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "query=" + encodeURIComponent(query)
-        });
+    responseBox.innerText = "Thinking...";
 
-        let data = await res.text();
+    let res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: "query=" + encodeURIComponent(query)
+    });
 
-        responseBox.innerText = data;
-
-    } catch(error){
-        responseBox.innerText = "Something went wrong. Please try again.";
-        console.error(error);
-    }
-
-    // ✅ optional: clear input after submit
-    queryInput.value = "";
-
+    let data = await res.text();
+    responseBox.innerText = data;
 });
-
 </script>
 
 </body>
