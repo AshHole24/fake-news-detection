@@ -11,7 +11,7 @@
 <div class="main-container">
 
 <!-- LEFT SIDE -->
-<div class="left-panel">
+<div class="card left-panel">
 
 <h2>Fake News Detection</h2>
 
@@ -21,7 +21,7 @@
 </form>
 
 {% if error %}
-<p style="color:red;">{{error}}</p>
+<p class="error">{{error}}</p>
 {% endif %}
 
 {% if prediction %}
@@ -45,9 +45,10 @@
 </div>
 
 <!-- RIGHT SIDE -->
-<div class="right-panel">
+<div class="card right-panel">
 
-<!-- Confidence Bar -->
+<h3 style="text-align:center;">Analysis</h3>
+
 {% if confidence %}
 <div class="bar-container">
 <div class="bar" style="width: {{confidence}}%;">
@@ -56,20 +57,18 @@
 </div>
 {% endif %}
 
-<!-- Pie Chart -->
 <canvas id="chart"></canvas>
 
 </div>
 
 </div>
 
-<!-- BOTTOM BUTTONS -->
+<!-- BUTTONS -->
 <div class="bottom-buttons">
 <a href="/latest" class="news-btn">Latest News</a>
 <a href="/history" class="news-btn">History</a>
 </div>
 
-<!-- Chart -->
 <script>
 var ctx = document.getElementById('chart');
 
