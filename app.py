@@ -6,7 +6,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-# Load model
+# Load ML model
 model = pickle.load(open("model/fake_news_model.pkl", "rb"))
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
@@ -37,20 +37,17 @@ init_db()
 
 # ---------------- REASON DETECTION ----------------
 def detect_reason(text):
-
     text_lower = text.lower()
     reasons = []
 
-    fake_keywords = ["shocking", "breaking", "viral", "exposed", "100%", "alert"]
-
-    if any(word in text_lower for word in fake_keywords):
-        reasons.append("Contains clickbait or sensational words")
+    if any(word in text_lower for word in ["shocking", "breaking", "viral", "100%", "alert"]):
+        reasons.append("Contains sensational or clickbait words")
 
     if text.count("!") > 3:
         reasons.append("Too many exclamation marks")
 
     if len(text.split()) < 25:
-        reasons.append("Content is too short")
+        reasons.append("Content too short")
 
     if not any(src in text_lower for src in ["bbc", "ndtv", "reuters", "cnn"]):
         reasons.append("No trusted source mentioned")
@@ -76,7 +73,16 @@ def predict():
 
     global fake_count, real_count
 
-    news = request.form["news"]
+    news = request.form.get("news")
+
+    # ✅ Input validation
+    if not news or news.strip() == "":
+        return render_template(
+            "index.html",
+            error="Please enter news text.",
+            fake=fake_count,
+            real=real_count
+        )
 
     vect = vectorizer.transform([news])
     prediction = model.predict(vect)[0]
@@ -93,17 +99,20 @@ def predict():
         result = "Fake News"
         fake_count += 1
 
-    # -------- SAVE TO DATABASE --------
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
+    # ✅ Save to database safely
+    try:
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
 
-    cursor.execute(
-        "INSERT INTO history (news, result, confidence) VALUES (?, ?, ?)",
-        (news, result, confidence)
-    )
+        cursor.execute(
+            "INSERT INTO history (news, result, confidence) VALUES (?, ?, ?)",
+            (news, result, confidence)
+        )
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
+    except:
+        print("Database error")
 
     return render_template(
         "index.html",
@@ -119,13 +128,16 @@ def predict():
 @app.route("/history")
 def history():
 
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 10")
-    data = cursor.fetchall()
+        cursor.execute("SELECT * FROM history ORDER BY id DESC LIMIT 10")
+        data = cursor.fetchall()
 
-    conn.close()
+        conn.close()
+    except:
+        data = []
 
     return render_template("history.html", data=data)
 
@@ -136,13 +148,17 @@ def latest():
 
     global articles_cache
 
-    API_KEY = "825fc48cd42e4d69a448134984a85346"
+    try:
+        API_KEY = "825fc48cd42e4d69a448134984a85346"
+        url = f"https://newsapi.org/v2/everything?q=india&language=en&sortBy=publishedAt&apiKey={API_KEY}"
 
-    url = f"https://newsapi.org/v2/everything?q=india&language=en&sortBy=publishedAt&apiKey={API_KEY}"
-    response = requests.get(url)
-    data = response.json()
+        response = requests.get(url)
+        data = response.json()
 
-    articles_cache = data["articles"]
+        articles_cache = data.get("articles", [])
+
+    except:
+        articles_cache = []
 
     return render_template("latest.html", articles=articles_cache)
 
@@ -150,6 +166,10 @@ def latest():
 # ---------------- NEWS DETAIL ----------------
 @app.route("/news/<int:index>")
 def news_detail(index):
+
+    if index < 0 or index >= len(articles_cache):
+        return "Invalid article", 404
+
     article = articles_cache[index]
     return render_template("news_detail.html", article=article)
 
@@ -158,7 +178,7 @@ def news_detail(index):
 @app.route("/chat", methods=["POST"])
 def chat():
 
-    user_query = request.form["query"].lower()
+    user_query = request.form.get("query", "").lower()
 
     if "fake" in user_query:
         response = "This news might be fake due to exaggerated claims or lack of trusted sources."
