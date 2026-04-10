@@ -1,69 +1,122 @@
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial;
+    margin:0;
+    padding:20px;
     background: linear-gradient(135deg,#f3f7ff,#dfe9ff);
-    margin: 0;
-    padding: 20px;
 }
 
-/* Container */
-.container{
-    max-width: 800px;
-    margin: auto;
+/* SPLIT SCREEN */
+.main-container{
+    display:flex;
+    gap:20px;
 }
 
-/* Card */
-.card{
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%;
-    box-sizing: border-box;
+/* LEFT */
+.left-panel{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:10px;
 }
 
-/* Heading */
-h2{
-    text-align: center;
+/* RIGHT */
+.right-panel{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-/* Textarea (FIXED ALIGNMENT) */
+/* TEXTAREA */
 textarea{
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    resize: none;
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
 }
 
-/* Button */
+/* BUTTON */
 button{
-    width: 100%;
-    background: #0f766e;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    width:100%;
+    padding:10px;
+    background:#0f766e;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
 }
 
-/* Result */
+/* RESULT */
 .result{
-    margin-top: 15px;
+    margin-top:15px;
 }
 
-/* Links */
+/* CONFIDENCE BAR */
+.bar-container{
+    background:#ddd;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.bar{
+    background:#22c55e;
+    color:white;
+    text-align:center;
+    padding:8px;
+}
+
+/* CHART */
+canvas{
+    max-width:300px;
+    margin:auto;
+}
+
+/* BUTTONS CENTER */
+.bottom-buttons{
+    text-align:center;
+    margin-top:20px;
+}
+
 .news-btn{
-    background: #06b6d4;
-    color: white;
-    padding: 8px 15px;
-    text-decoration: none;
-    border-radius: 6px;
-    margin-right: 10px;
+    background:#06b6d4;
+    color:white;
+    padding:8px 15px;
+    border-radius:6px;
+    text-decoration:none;
+    margin:5px;
 }
 
-/* Confidence bar FIX */
-.result div{
-    overflow: hidden;
-    border-radius: 10px;
+/* NEWS PAGE */
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.news-card{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+}
+
+.meta{
+    font-size:12px;
+    color:gray;
+}
+
+/* CHATBOX */
+.chat-box{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.chat-box input{
+    flex:1;
+    padding:10px;
 }
