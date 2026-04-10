@@ -3,16 +3,15 @@
 <head>
 <title>Fake News Detector</title>
 <link rel="stylesheet" href="/static/style.css">
-
-<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
+
 <body>
 
-<div class="container">
+<div class="main-container">
 
-<div class="card gradient-card">
+<!-- LEFT SIDE -->
+<div class="left-panel">
 
 <h2>Fake News Detection</h2>
 
@@ -29,22 +28,6 @@
 <div class="result">
 <h3>{{prediction}}</h3>
 <p>Confidence: {{confidence}}%</p>
-
-<!-- ✅ FIXED CONFIDENCE BAR -->
-<div style="background:#ddd;border-radius:10px;overflow:hidden;">
-<div style="
-width: {{confidence}}%;
-max-width:100%;
-background: linear-gradient(90deg,#22c55e,#16a34a);
-padding:8px 0;
-color:white;
-text-align:center;
-font-size:14px;
-">
-{{confidence}}%
-</div>
-</div>
-
 </div>
 {% endif %}
 
@@ -59,23 +42,34 @@ font-size:14px;
 </div>
 {% endif %}
 
-<br>
+</div>
 
-<!-- ✅ PIE CHART -->
-<div style="max-width:300px;margin:auto;">
+<!-- RIGHT SIDE -->
+<div class="right-panel">
+
+<!-- Confidence Bar -->
+{% if confidence %}
+<div class="bar-container">
+<div class="bar" style="width: {{confidence}}%;">
+{{confidence}}%
+</div>
+</div>
+{% endif %}
+
+<!-- Pie Chart -->
 <canvas id="chart"></canvas>
+
 </div>
 
-<br>
+</div>
 
+<!-- BOTTOM BUTTONS -->
+<div class="bottom-buttons">
 <a href="/latest" class="news-btn">Latest News</a>
-<a href="/history" class="news-btn">View History</a>
-
+<a href="/history" class="news-btn">History</a>
 </div>
 
-</div>
-
-<!-- ✅ CHART SCRIPT -->
+<!-- Chart -->
 <script>
 var ctx = document.getElementById('chart');
 
