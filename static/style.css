@@ -136,3 +136,34 @@ canvas{
     font-size:12px;
     color:gray;
 }
+/* TOP BAR */
+.top-bar{
+    margin-bottom:10px;
+}
+
+/* ARTICLE PAGE */
+.article-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+}
+
+/* ARTICLE TEXT */
+.content{
+    margin-top:15px;
+    line-height:1.6;
+}
+
+/* CHATBOX */
+.chat-box{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.chat-box input{
+    flex:1;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
